@@ -4,3 +4,4 @@ TO DO:
 - custom fonts
 - specific word detection so will pop
 - animated word transition
+- faster proccesing
