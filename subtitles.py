@@ -2,7 +2,7 @@ import os, json, subprocess, ffmpeg, numpy as np
 from moviepy.editor import VideoFileClip, TextClip, CompositeVideoClip
 from vosk import Model, KaldiRecognizer, SetLogLevel
 
-def extract_audio_from_video(video_path):
+def extract_audio_from_video(video_path: str):
     """Extracts raw audio data from video and saves it as a .wav file."""
     try:
         probe_output = subprocess.run(
@@ -31,7 +31,7 @@ def extract_audio_from_video(video_path):
     return audio_data, sample_rate
 
 
-def transcribe_audio(audio_data, sample_rate, model_path="vosk-model-small-en-us-0.15", debug=False):
+def transcribe_audio(audio_data, sample_rate: int, model_path="vosk-model-small-en-us-0.15", debug=False) -> list:
     """Transcribes in-memory audio using Vosk and generates subtitles based on recognized text."""
     if not debug: SetLogLevel(-1)
 
@@ -63,19 +63,22 @@ def transcribe_audio(audio_data, sample_rate, model_path="vosk-model-small-en-us
     return subtitles
 
 
-def add_subtitles_to_video(video_path, subtitles, output_video=os.path.join(os.getcwd(), "output_with_subtitles.mp4")):
+def add_subtitles_to_video(video_path: str, subtitles: list, font_path=os.path.join(os.getcwd(), "Banana-Stick.otf"), output_video=os.path.join(os.getcwd(), "output_with_subtitles.mp4")) -> None:
     """Overlays individual words as subtitles directly onto the video."""
     video_clip = VideoFileClip(video_path)
     subtitle_clips = []
+
 
     # Create individual TextClip for each word
     for start, end, text in subtitles:
         text_clip = TextClip(
             text,
             fontsize=70,
-            font="Arial",
-            color="yellow",
-            bg_color="transparent"
+            font=font_path,
+            color="orange",
+            stroke_width=5,
+            stroke_color="black",
+            method="caption",
         ).set_position(("center", "center")).set_duration(end - start).set_start(start)
 
         subtitle_clips.append(text_clip)
