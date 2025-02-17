@@ -28,7 +28,6 @@ def extract_audio_from_video(video_path):
     )
 
     audio_data = np.frombuffer(process[0], dtype=np.int16)
-    
     return audio_data, sample_rate
 
 
@@ -60,7 +59,7 @@ def transcribe_audio(audio_data, sample_rate, model_path="vosk-model-small-en-us
 
                 segment_start += 3  # Adjust the start time for the next chunk
 
-    if  debug: print("Subtitles:", subtitles)  # Print the final subtitles list
+    if debug: print("Subtitles:", subtitles)  # Print the final subtitles list
     return subtitles
 
 
