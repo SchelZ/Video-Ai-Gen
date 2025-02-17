@@ -36,7 +36,6 @@ def transcribe_audio(audio_data, sample_rate, model_path="vosk-model-small-en-us
     """Transcribes in-memory audio using Vosk and generates subtitles based on recognized text."""
     if not debug: SetLogLevel(-1)
 
-
     model = Model(model_path)
     recognizer = KaldiRecognizer(model, sample_rate)
     recognizer.SetWords(True)
@@ -91,7 +90,7 @@ def main() -> None:
     audio_data, sample_rate = extract_audio_from_video(video_file)
     subtitles = transcribe_audio(audio_data, sample_rate)
     add_subtitles_to_video(video_file, subtitles)
-    print(f"Subtitle added! Saved as output_with_subtitles.mp4")
+    print("Subtitle added! Saved as output_with_subtitles.mp4")
 
 if __name__ == "__main__":
     main()
