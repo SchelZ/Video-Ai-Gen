@@ -5,3 +5,4 @@ TO DO:
 - specific word detection so will pop
 - animated word transition
 - faster proccesing
+- ui interface
